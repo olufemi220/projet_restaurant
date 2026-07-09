@@ -28,10 +28,19 @@ Application web complète pour la gestion d'un restaurant ou d'un bar : commande
 
 ## Installation avec Docker
 
+### Développement (hot-reload)
+
 ```bash
 git clone https://github.com/olufemi220/projet_restaurant.git
 cd projet_restaurant
-docker-compose up --build
+cp .env.example .env   # optionnel — valeurs par défaut déjà définies
+docker compose up --build
+```
+
+### Production
+
+```bash
+docker compose -f docker-compose.prod.yml up --build -d
 ```
 
 L'application est accessible sur [http://localhost:3000](http://localhost:3000).
@@ -39,8 +48,16 @@ L'application est accessible sur [http://localhost:3000](http://localhost:3000).
 | Service  | Port local |
 |----------|------------|
 | Frontend (via Nginx) | 3000 |
-| Backend API          | 5000 |
+| Backend API          | 5001 |
 | MySQL                | 33061 |
+
+### Commandes utiles
+
+```bash
+docker compose down              # arrêter les conteneurs
+docker compose down -v           # arrêter et supprimer les volumes (réinitialise la BDD)
+docker compose logs -f backend   # suivre les logs du backend
+```
 
 ## Installation manuelle
 
@@ -116,7 +133,9 @@ projet_restaurant/
 │       └── screens/
 ├── database/         # Script SQL d'initialisation
 ├── nginx/            # Configuration reverse proxy
-└── docker-compose.yml
+├── docker-compose.yml
+├── docker-compose.prod.yml
+└── .env.example
 ```
 
 ## Tests

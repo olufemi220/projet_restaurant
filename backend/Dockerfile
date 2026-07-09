@@ -7,7 +7,7 @@ RUN apt-get update \
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci --omit=dev
 
 COPY . .
 
@@ -16,4 +16,4 @@ RUN chmod +x docker-entrypoint.sh
 EXPOSE 5000
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
